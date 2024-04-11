@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux"
-import { createUser } from '../store/AuthenticationSlice'
+import { createUser, setIsSignup } from '../store/AuthenticationSlice'
 import {useNavigate} from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
   const [user, setUser] = useState({username:"",email:"",password:"",watchList:[],likedVideo:[]});
@@ -11,8 +13,30 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    console.log(state);
-    state.isSingup && navigate('/login')
+    
+    
+    if (state.isSingup) {
+      toast.success('Account created successfully...', {
+        position: "top-center",
+        autoClose: 1000,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        onClose: () => {
+          navigate("/login")
+        }
+  
+      });
+
+
+      dispatch(setIsSignup());
+  
+    }
+      
+
+
+    
   },[state])
 
   console.log(state);
@@ -22,10 +46,12 @@ const SignUp = () => {
     dispatch(createUser(user));
 
     
+    
     setUser({username:"",email:"",password:"",watchList:[],likedVideo:[]})
   }
 
   return (
+    <>
     <form className='p-8 bg-white bg-opacity-30  sm:w-96 items-center m-auto mt-28' onSubmit={(event)=> SingUpUser(event)}>
       <p className='w-full text-3xl text-center'>SING_UP</p>
       <div className='flex flex-col'>
@@ -45,6 +71,8 @@ const SignUp = () => {
         <input className='w-full h-10 rounded-xl bg-red-700' type="submit" />
       </div>
     </form>
+    <ToastContainer />
+    </>
   )
 }
 

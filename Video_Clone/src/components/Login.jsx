@@ -19,7 +19,7 @@ const Login = () => {
     if (state.isLogin) {
       toast.success('Login successfully...', {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
 
         draggable: true,
         progress: undefined,

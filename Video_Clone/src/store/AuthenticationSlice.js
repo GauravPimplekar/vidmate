@@ -26,6 +26,9 @@ const AuthenticationSlice = createSlice({
         alert("user already exist")
       }
     },
+    setIsSignup(state){
+      state.isSingup = false;
+    },
     loginUser(state,action){
       let users = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -78,4 +81,4 @@ const AuthenticationSlice = createSlice({
 
 
 export default AuthenticationSlice.reducer;
-export const {createUser, loginUser, logoutUser,checkIsLoginOrNot} = AuthenticationSlice.actions;
+export const {createUser, loginUser, logoutUser,checkIsLoginOrNot, setIsSignup} = AuthenticationSlice.actions;
